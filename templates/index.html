@@ -14,9 +14,14 @@
       <br>
       <button type="submit">Render</button>
     </form>
-    {% if url %}
+    <!-- {% if url %}
       <br>
       <img src="{{ url }}" alt="Rendered TikZ code">
+    {% endif %} -->
+    {% if image_data %}
+        <img src="data:image/png;base64,{{ image_data }}" alt="Rendered TikZ code">
     {% endif %}
+
+
   </body>
 </html>
