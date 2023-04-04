@@ -1,4 +1,4 @@
-<!-- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -7,7 +7,9 @@
   <body>
     <h1>TikZ Renderer</h1>
     <form action="/" method="post">
-      <textarea name="tikz_code" rows="10" cols="80"></textarea>
+      <!-- <textarea name="tikz_code" rows="10" cols="80"></textarea> -->
+      <!-- write the tikz_code back into text area so it does not disappear when we display -->
+      <textarea name="tikz_code" rows="10" cols="80">{{ tikz_code }}</textarea>
       <br>
       <button type="submit">Render</button>
     </form>
@@ -15,39 +17,5 @@
       <br>
       <img src="{{ url }}" alt="Rendered TikZ code">
     {% endif %}
-  </body>
-</html> -->
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>TikZ Renderer</title>
-    <style>
-      .container {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-start;
-      }
-      textarea {
-        flex: 2;
-      }
-      img {
-        flex: 1;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>TikZ Renderer</h1>
-    <div class="container">
-      <form action="/" method="post">
-        <textarea name="tikz_code" rows="10" cols="80"></textarea>
-        <br>
-        <button type="submit">Render</button>
-      </form>
-      <!-- {% if url %} -->
-        <img src="{{ url }}" alt="Rendered TikZ code">
-      <!-- {% endif %} -->
-    </div>
   </body>
 </html>

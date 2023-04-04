@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, send_file, url_for
 import tempfile
 import os
 import subprocess
@@ -52,7 +52,14 @@ def render_tikz():
                 f"{tex_file.name[:-4]}.png",
             ]
         )
-    return send_file(f"{tex_file.name[:-4]}.png", mimetype="image/png")
+        # a hacky method that copies the file in the tmp folder to the static folder
+        subprocess.call(["cp", f"{tex_file.name[:-4]}.png", "static/"])
+    # this by itself just renders the entire image in the browser
+    # what we want is to render it using the index.html as a template.
+    # return send_file(f"{tex_file.name[:-4]}.png", mimetype="image/png")
+
+    url = url_for("static", filename=f"{os.path.basename(tex_file.name)[:-4]}.png")
+    return render_template("index.html", url=url, tikz_code=tikz_code)
 
 
 if __name__ == "__main__":
