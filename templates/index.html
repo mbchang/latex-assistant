@@ -10,7 +10,7 @@
     <form action="/" method="post">
       <!-- <textarea name="tikz_code" rows="10" cols="80"></textarea> -->
       <!-- write the tikz_code back into text area so it does not disappear when we display -->
-      <textarea name="tikz_code" rows="10" cols="80" placeholder="Enter your TikZ code here">{{ tikz_code }}</textarea>
+      <textarea name="tikz_description" rows="10" cols="80" placeholder="Enter your TikZ description here">{{ tikz_description }}</textarea>
       <br>
       <button type="submit">Render</button>
     </form>
@@ -19,6 +19,7 @@
       <img src="{{ url }}" alt="Rendered TikZ code">
     {% endif %} -->
     {% if image_data %}
+        <textarea name="tikz_code" rows="10" cols="80">{{ tikz_code }}</textarea>
         <img src="data:image/png;base64,{{ image_data }}" alt="Rendered TikZ code">
     {% endif %}
 
