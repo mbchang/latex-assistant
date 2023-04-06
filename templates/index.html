@@ -12,15 +12,17 @@
     </script>
   </head>
   <body class="light-mode">
-    <h1>TikZ Generator</h1>
     <button id="theme-toggle" onclick="toggleTheme()">
       <i class="fas fa-adjust"></i>
       <span>Toggle Theme</span>
     </button>
+    <h1>TikZ Generator</h1>
     <form action="/" method="post">
       <!-- write the tikz_description back into text area so it does not disappear when we display -->
       <textarea name="tikz_description" rows="2" cols="80" placeholder="Enter your TikZ description here">{{ tikz_description }}</textarea>
-      <button type="submit">Generate</button>
+    </form>
+    <form id="generate-form" action="/" method="post">
+      <input type="hidden" name="tikz_description" value="{{ tikz_description }}">
     </form>
     {% if image_data %}
         <div class="result-container">
@@ -30,5 +32,15 @@
           </div>
         </div>
     {% endif %}
+    <script>
+      const generateForm = document.getElementById('generate-form');
+      const descriptionInput = document.querySelector('textarea[name="tikz_description"]');
+      descriptionInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          generateForm.submit();
+        }
+      });
+    </script>
   </body>
 </html>
