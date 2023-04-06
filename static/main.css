@@ -29,6 +29,7 @@ body {
   margin: 0 auto;
   background-color: var(--bg-color);
   color: var(--text-color);
+  transition: box-shadow 0.3s;
 }
 form {
   display: flex;
