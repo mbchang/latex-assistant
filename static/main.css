@@ -68,6 +68,10 @@ form, .result-container {
   box-sizing: border-box;
 }
 
+textarea {
+  padding: 10px;
+}
+
 form textarea, .result-container textarea {
   display: block;
   box-sizing: border-box;
@@ -100,4 +104,11 @@ form button {
   position: fixed;
   top: 10px;
   right: 10px;
+}
+
+.submit-icon {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  color: #ccc;
 }

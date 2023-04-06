@@ -17,13 +17,13 @@
       <span>Toggle Theme</span>
     </button>
     <h1>TikZ Generator</h1>
-    <form action="/" method="post">
-      <!-- write the tikz_description back into text area so it does not disappear when we display -->
-      <textarea name="tikz_description" rows="2" cols="80" placeholder="Enter your TikZ description here">{{ tikz_description }}</textarea>
-    </form>
     <form id="generate-form" action="/" method="post">
-      <input type="hidden" name="tikz_description" value="{{ tikz_description }}">
-    </form>
+      <!-- write the tikz_description back into text area so it does not disappear when we display -->
+      <div class="input-container">
+        <i class="fas fa-paper-plane submit-icon"></i>
+        <textarea name="tikz_description" rows="1" cols="80" placeholder="Enter your TikZ description here">{{ tikz_description }}</textarea>
+      </div>
+      </form>
     {% if image_data %}
         <div class="result-container">
           <textarea name="tikz_code" rows="20" cols="80">{{ tikz_code }}</textarea>

@@ -16,7 +16,7 @@ def index():
 
 def generate_prompt(tikz):
     return f"""I am an expert at TikZ.
-Here is the TikZ code that fits the description: {tikz}.
+Here is the TikZ code that fits the following description: {tikz}.
 \\documentclass[tikz,margin=2mm]{{standalone}}
 \\begin{{document}}
 \\begin{{tikzpicture}}"""
