@@ -15,19 +15,16 @@ def index():
 
 
 def generate_prompt(tikz):
-    return f"""I am an expert at TikZ.
-Here is the TikZ code that fits the following description: {tikz}.
+    return f"""You are an expert at TikZ.
+You will import any necessary tikz libraries.
+Generate a standalone TikZ document that fits the following description: {tikz}.
 \\documentclass[tikz,margin=2mm]{{standalone}}
-\\begin{{document}}
-\\begin{{tikzpicture}}"""
+\\usepackage{{"""
 
 
 def post_process(tikz):
     latex = f"""\\documentclass[tikz,margin=2mm]{{standalone}}
-
-\\begin{{document}}
-\\begin{{tikzpicture}}
-{tikz}
+\\usepackage{{{tikz}
 \\end{{tikzpicture}}
 \\end{{document}}"""
     return latex.strip()
