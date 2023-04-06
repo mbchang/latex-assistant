@@ -119,6 +119,15 @@ form button {
   --primary-color: #f5f2f0; /* dark mode primary color */
 }
 
+:root a {
+  color: #1d4ed8; /* blue link color for light mode */
+}
+
+.dark-mode a {
+  color: #60a5fa; /* blue link color for dark mode */
+}
+
+
 #theme-toggle {
   position: fixed;
   top: 10px;
@@ -156,7 +165,11 @@ form button {
 /* New styles for headings and form elements */
 h1 {
   color: var(--primary-color);
-  margin-bottom: 48px;
+  margin-bottom: 8px;
+}
+
+.author-credit {
+  margin-bottom: 54px;
 }
 
 form textarea,
@@ -204,3 +217,4 @@ form button:hover {
 textarea[name="tikz_description"] {
   resize: none;
 }
+
