@@ -142,6 +142,7 @@ form button {
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
   border-radius: 5px;
+  opacity: 1;
 
   display: flex;
   align-items: center;
@@ -160,6 +161,7 @@ form button {
 #theme-toggle:hover {
   background-color: var(--primary-color);
   color: var(--bg-color);
+  opacity: 0.9;
 }
 
 /* New styles for headings and form elements */
@@ -210,9 +212,9 @@ form button:hover {
   transition: opacity 0.3s;
 }
 
-.submit-icon:hover {
+/* .submit-icon:hover {
   opacity: 1;
-}
+} */
 
 textarea[name="tikz_description"] {
   resize: none;
