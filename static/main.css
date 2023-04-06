@@ -108,14 +108,13 @@ form button {
 :root {
   --bg-color: #f5f2f0; /* light mode background color */
   --text-color: #272822; /* light mode text color */
-  /* --primary-color: #07a; light mode primary color */
   --primary-color: #272822; /* light mode primary color */
+  --airplane-color: #272822;
 }
 
 .dark-mode {
   --bg-color: #272822; /* dark mode background color */
   --text-color: #f5f2f0; /* dark mode text color */
-  /* --primary-color: #66d9ef; dark mode primary color */
   --primary-color: #f5f2f0; /* dark mode primary color */
 }
 
@@ -173,7 +172,6 @@ form button:focus {
 form button {
   background-color: var(--primary-color);
   color: var(--bg-color);
-  /* padding: 10px; */
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
@@ -191,9 +189,8 @@ form button:hover {
   position: absolute;
   top: 16px; /* this, rather than 50%, centers the icon vertically */
   right: 10px;
-  /* transform: translateY(-50%); */
   font-size: 18px;
-  color: var(--text-color);
+  color: var(--airplane-color);
   cursor: pointer;
   opacity: 0.5;
   transition: opacity 0.3s;
