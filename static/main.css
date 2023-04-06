@@ -25,43 +25,79 @@ body {
   flex-direction: column;
   align-items: center;
   padding-top: 60px;
-}
-.icon {
-  width: 34px;
-}
-h3 {
-  font-size: 32px;
-  line-height: 40px;
-  font-weight: bold;
-  color: #202123;
-  margin: 16px 0 40px;
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
 form {
   display: flex;
   flex-direction: column;
-  width: 320px;
+  /* width: 320px; */
 }
-input[type="text"] {
-  padding: 12px 16px;
-  border: 1px solid #10a37f;
-  border-radius: 4px;
-  margin-bottom: 24px;
+
+.result-container {
+  display: block;
 }
-::placeholder {
-  color: #8e8ea0;
-  opacity: 1;
+
+.result-container textarea,
+.result-container .image-container {
+  display: block;
+  box-sizing: border-box;
 }
-input[type="submit"] {
-  padding: 12px 0;
-  color: #fff;
-  background-color: #10a37f;
-  border: none;
-  border-radius: 4px;
-  text-align: center;
-  cursor: pointer;
+
+.result-container .image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+  border: var(--image-border);
 }
-.result {
-  font-weight: bold;
-  margin-top: 40px;
-  white-space: pre-wrap;
+
+.result-container .image-container img {
+  max-height: calc(100vh - 60px);
+}
+
+textarea, button, img {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+form, .result-container {
+  box-sizing: border-box;
+}
+
+form textarea, .result-container textarea {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 10px;
+  /* background-color: var(--text-color);
+  color: var(--bg-color); */
+}
+
+form button {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 40px;
+}
+
+:root {
+  --bg-color: #f0f0f0; /* light mode background color */
+  --text-color: #333; /* light mode text color */
+  --image-border: 1px solid #333; /* light mode image border */
+}
+
+.dark-mode {
+  --bg-color: #333; /* dark mode background color */
+  --text-color: #f0f0f0; /* dark mode text color */
+  --image-border: 1px solid #f0f0f0; /* dark mode image border */
+}
+
+#theme-toggle {
+  position: fixed;
+  top: 10px;
+  right: 10px;
 }

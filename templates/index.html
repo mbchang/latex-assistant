@@ -4,20 +4,31 @@
     <meta charset="UTF-8">
     <title>TikZ Generator</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <script>
+      function toggleTheme() {
+        const body = document.body;
+        body.classList.toggle("dark-mode");
+      }
+    </script>
   </head>
-  <body>
+  <body class="light-mode">
     <h1>TikZ Generator</h1>
+    <button id="theme-toggle" onclick="toggleTheme()">
+      <i class="fas fa-adjust"></i>
+      <span>Toggle Theme</span>
+    </button>
     <form action="/" method="post">
       <!-- write the tikz_description back into text area so it does not disappear when we display -->
-      <textarea name="tikz_description" rows="10" cols="80" placeholder="Enter your TikZ description here">{{ tikz_description }}</textarea>
-      <br>
+      <textarea name="tikz_description" rows="2" cols="80" placeholder="Enter your TikZ description here">{{ tikz_description }}</textarea>
       <button type="submit">Generate</button>
     </form>
     {% if image_data %}
-        <textarea name="tikz_code" rows="10" cols="80">{{ tikz_code }}</textarea>
-        <img src="data:image/png;base64,{{ image_data }}" alt="Rendered TikZ code">
+        <div class="result-container">
+          <textarea name="tikz_code" rows="20" cols="80">{{ tikz_code }}</textarea>
+          <div class="image-container">
+            <img src="data:image/png;base64,{{ image_data }}" alt="Rendered TikZ code">
+          </div>
+        </div>
     {% endif %}
-
-
   </body>
 </html>
