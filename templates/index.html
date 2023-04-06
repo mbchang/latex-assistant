@@ -7,6 +7,8 @@
     <link id="prism-theme" rel="stylesheet" href="{{ url_for('static', filename='prism.css') }}">
     <script src="{{ url_for('static', filename='prism.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
   </head>
   <body class="light-mode">
     <button id="theme-toggle"><i class="fas fa-adjust"></i> Dark Mode</button>
@@ -55,8 +57,14 @@
       const descriptionInput = document.querySelector('textarea[name="tikz_description"]');
       descriptionInput.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
-          event.preventDefault();
-          generateForm.submit();
+          if (event.shiftKey) {
+            // If Shift + Enter, add a newline
+            event.stopPropagation(); // Prevent triggering other keydown events
+          } else {
+            // If just Enter, submit the form
+            event.preventDefault();
+            generateForm.submit();
+          }
         }
       });
 
@@ -70,6 +78,20 @@
         toggleButton.textContent = "Dark Mode";
       }
       toggleCodeTheme();
+
+      function autoResizeTextarea(textarea) {
+        textarea.style.height = 'auto';
+        textarea.style.height = textarea.scrollHeight + 'px';
+      }
+
+      // Auto-resize the textarea on input
+      const tikzDescriptionTextarea = document.querySelector('textarea[name="tikz_description"]');
+      tikzDescriptionTextarea.addEventListener('input', () => {
+        autoResizeTextarea(tikzDescriptionTextarea);
+      });
+
+      // Initialize the textarea height based on its initial content
+      autoResizeTextarea(tikzDescriptionTextarea);
 
     </script>
   </body>
