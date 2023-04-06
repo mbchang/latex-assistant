@@ -4,18 +4,10 @@
     <meta charset="UTF-8">
     <title>TikZ Generator</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
-    <script>
-      function toggleTheme() {
-        const body = document.body;
-        body.classList.toggle("dark-mode");
-      }
-    </script>
   </head>
   <body class="light-mode">
-    <button id="theme-toggle" onclick="toggleTheme()">
-      <i class="fas fa-adjust"></i>
-      <span>Toggle Theme</span>
-    </button>
+    <button id="theme-toggle">Dark Mode</button>
+
     <h1>TikZ Generator</h1>
     <form id="generate-form" action="/" method="post">
       <!-- write the tikz_description back into text area so it does not disappear when we display -->
@@ -33,6 +25,20 @@
         </div>
     {% endif %}
     <script>
+      const toggleButton = document.getElementById('theme-toggle');
+      const body = document.body;
+
+      toggleButton.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+          body.classList.remove('dark-mode');
+          toggleButton.textContent = 'Dark Mode';
+        } else {
+          body.classList.add('dark-mode');
+          toggleButton.textContent = 'Light Mode';
+        }
+        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
+      });
+
       const generateForm = document.getElementById('generate-form');
       const descriptionInput = document.querySelector('textarea[name="tikz_description"]');
       descriptionInput.addEventListener('keydown', (event) => {
@@ -41,6 +47,17 @@
           generateForm.submit();
         }
       });
+
+      const theme = localStorage.getItem("theme");
+
+      if (theme === "dark") {
+        body.classList.add("dark-mode");
+        toggleButton.textContent = "Light Mode";
+      } else {
+        body.classList.remove("dark-mode");
+        toggleButton.textContent = "Dark Mode";
+      }
+
     </script>
   </body>
 </html>
