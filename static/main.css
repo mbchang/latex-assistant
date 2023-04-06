@@ -52,10 +52,18 @@ form {
   align-items: center;
   /* border: 1px solid black; */
   border: var(--image-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s;
+}
+
+.result-container .image-container:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .result-container .image-container img {
   max-height: calc(100vh - 60px);
+  border-radius: 8px;
 }
 
 textarea, button, img {
@@ -79,6 +87,13 @@ form textarea, .result-container textarea {
   margin-bottom: 10px;
   /* background-color: var(--text-color);
   color: var(--bg-color); */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+form textarea:focus {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 form button {
@@ -89,15 +104,19 @@ form button {
 }
 
 :root {
-  --bg-color: #f0f0f0; /* light mode background color */
-  --text-color: #333; /* light mode text color */
-  --image-border: 1px solid #333; /* light mode image border */
+  --bg-color: #f5f2f0; /* light mode background color */
+  --text-color: #272822; /* light mode text color */
+  --primary-color: #3B82F6; /* light mode primary color */
+  --secondary-color: #2563EB; /* light mode secondary color */
+  --image-border: 1px solid #272822; /* light mode image border */
 }
 
 .dark-mode {
-  --bg-color: #333; /* dark mode background color */
-  --text-color: #f0f0f0; /* dark mode text color */
-  --image-border: 1px solid #f0f0f0; /* dark mode image border */
+  --bg-color: #272822; /* dark mode background color */
+  --text-color: #f5f2f0; /* dark mode text color */
+  --primary-color: #93C5FD; /* dark mode primary color */
+  --secondary-color: #60A5FA; /* dark mode secondary color */
+  --image-border: 1px solid #f5f2f0; /* dark mode image border */
 }
 
 #theme-toggle {
@@ -107,4 +126,78 @@ form button {
   width: 100px;
   background-color: var(--text-color);
   color: var(--bg-color);
+
+  border: none;
+  padding: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  border-radius: 8px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-direction: row-reverse; /* Add this line */
+}
+
+.input-container,
+.code-container {
+  width: 100%;
+  max-width: 500px;
+  box-sizing: border-box;
+}
+
+#theme-toggle:hover {
+  background-color: var(--primary-color);
+  color: var(--bg-color);
+}
+
+/* New styles for headings and form elements */
+h1 {
+  color: var(--primary-color);
+}
+
+form textarea,
+form button {
+  border: 1px solid var(--secondary-color);
+}
+
+form textarea:focus,
+form button:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+form button {
+  background-color: var(--secondary-color);
+  color: var(--bg-color);
+  /* padding: 10px; */
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+form button:hover {
+  background-color: var(--primary-color);
+}
+
+.input-container {
+  position: relative;
+}
+
+.submit-icon {
+  position: absolute;
+  top: 40%; /* this, rather than 50%, centers the icon vertically */
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: var(--text-color);
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.3s;
+}
+
+.submit-icon:hover {
+  opacity: 1;
 }

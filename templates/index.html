@@ -4,9 +4,12 @@
     <meta charset="UTF-8">
     <title>TikZ Generator</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+    <link id="prism-theme" rel="stylesheet" href="{{ url_for('static', filename='prism.css') }}">
+    <script src="{{ url_for('static', filename='prism.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
   </head>
   <body class="light-mode">
-    <button id="theme-toggle">Dark Mode</button>
+    <button id="theme-toggle"><i class="fas fa-adjust"></i> Dark Mode</button>
 
     <h1>TikZ Generator</h1>
     <form id="generate-form" action="/" method="post">
@@ -18,7 +21,9 @@
       </form>
     {% if image_data %}
         <div class="result-container">
-          <textarea name="tikz_code" rows="20" cols="80">{{ tikz_code }}</textarea>
+          <div class="code-container">
+            <pre><code class="language-latex">{{ tikz_code }}</code></pre>
+          </div>
           <div class="image-container">
             <img src="data:image/png;base64,{{ image_data }}" alt="Rendered TikZ code">
           </div>
@@ -27,16 +32,23 @@
     <script>
       const toggleButton = document.getElementById('theme-toggle');
       const body = document.body;
+      const prismTheme = document.getElementById('prism-theme');
+
+      function toggleCodeTheme() {
+        // Change Prism.js theme
+        if (body.classList.contains('dark-mode')) {
+          prismTheme.setAttribute('href', '{{ url_for("static", filename="prism_okaidia.css") }}');
+        } else {
+          prismTheme.setAttribute('href', '{{ url_for("static", filename="prism.css") }}');
+        }
+        Prism.highlightAll();
+      }
 
       toggleButton.addEventListener('click', () => {
-        if (body.classList.contains('dark-mode')) {
-          body.classList.remove('dark-mode');
-          toggleButton.textContent = 'Dark Mode';
-        } else {
-          body.classList.add('dark-mode');
-          toggleButton.textContent = 'Light Mode';
-        }
-        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
+        body.classList.toggle('dark-mode');
+        toggleButton.textContent = body.classList.contains('dark-mode') ? 'Light Mode' : 'Dark Mode';
+        localStorage.setItem('theme', body.classList.contains('dark-mode') ? 'dark' : 'light');
+        toggleCodeTheme();
       });
 
       const generateForm = document.getElementById('generate-form');
@@ -57,6 +69,7 @@
         body.classList.remove("dark-mode");
         toggleButton.textContent = "Dark Mode";
       }
+      toggleCodeTheme();
 
     </script>
   </body>
