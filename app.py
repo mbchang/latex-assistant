@@ -61,13 +61,13 @@ def index():
 def generate_prompt(description):
     return f"""You are an expert at LaTeX.
 Make sure you import all necessary packages and libraries.
-If asked to include graphics, replace all images with `example-image-<letter>.png`,
+If using `includegraphics` ONLY, replace all images with `example-image-<letter>.png`,
 where `<letter>` is a letter from the alphabet.
-If asked to generate TikZ code, make the document class be `standalone`.
+If asked to generate a `tikzpicture`, ALWAYS make the document class be `standalone`.
 If the document is a standalone document, then generate figures with `minipage`.
 But if the document is not a standalone document, then generate figures with
 `figure`, `subfigure`, or `minipage`.
-Do not assume there are external files, like images or tables.
+Do not assume there are external files, like images, tables, or datafiles.
 Generate the simplest LaTeX document that fits the following description: {description}.
 \\documentclass"""
 

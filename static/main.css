@@ -1,18 +1,3 @@
-@font-face {
-  font-family: "ColfaxAI";
-  src: url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff2)
-      format("woff2"),
-    url(https://cdn.openai.com/API/fonts/ColfaxAIRegular.woff) format("woff");
-  font-weight: normal;
-  font-style: normal;
-}
-@font-face {
-  font-family: "ColfaxAI";
-  src: url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff2) format("woff2"),
-    url(https://cdn.openai.com/API/fonts/ColfaxAIBold.woff) format("woff");
-  font-weight: bold;
-  font-style: normal;
-}
 body,
 input {
   font-size: 16px;
@@ -25,7 +10,7 @@ body {
   flex-direction: column;
   align-items: center;
   padding-top: 120px;
-  max-width: 800px;
+  max-width: 600px;
   margin: 0 auto;
   background-color: var(--bg-color);
   color: var(--text-color);
@@ -46,6 +31,8 @@ form {
 .result-container .image-container {
   display: block;
   box-sizing: border-box;
+  width: 100%;
+  max-width: 600px;
 }
 
 .result-container .image-container {
@@ -57,6 +44,7 @@ form {
   border-radius: 5px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s;
+  box-sizing: border-box; /* Add this line */
 }
 
 .result-container .image-container:hover {
@@ -69,7 +57,7 @@ form {
 }
 
 textarea, button, img {
-  width: 100%;
+  width: 600px;
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -153,10 +141,17 @@ form button {
 }
 
 .input-container,
-.code-container {
+.result-container {
   width: 100%;
-  max-width: 800px;
+  max-width: 600px;
   box-sizing: border-box;
+}
+
+.code-container {
+  max-height: 400px; /* Add this rule to set a fixed height */
+  overflow: auto; /* Add this rule to enable scrolling when the content overflows */
+  max-width: 600px;
+  width: 100%;
 }
 
 #theme-toggle:hover {
@@ -213,11 +208,60 @@ form button:hover {
   transition: opacity 0.3s;
 }
 
-/* .submit-icon:hover {
-  opacity: 1;
-} */
-
 textarea[name="tikz_description"] {
   resize: none;
 }
 
+.code-wrapper {
+  display: flex;
+  position: relative;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.2); /* Update this line */
+  margin-bottom: 30px;
+  margin-top: 30px;
+  border-radius: 5px; /* Optional: add a border radius for a smoother appearance */
+}
+
+/* Add this block for dark mode glow */
+.dark-mode .code-wrapper {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  border-radius: 5px; /* Optional: add a border radius for a smoother appearance */
+}
+
+.copy-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: var(--bg-color);
+  color: var(--primary-color);
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+  display: flex; /* Add this rule */
+  justify-content: flex-start; /* Add this rule */
+  align-items: center; /* Add this rule */
+  width: auto;
+  z-index: 1; /* Add this line to make sure the button is above the code container */
+}
+
+.copy-button:hover {
+  background-color: #e0e0e0;
+}
+
+.copy-button i {
+  width: auto; /* Add this rule to override inherited width */
+  margin-right: 5px;
+  margin-left: 0; /* Add this rule */
+}
+
+pre {
+  display: inline-block;
+  margin: 0;
+}
+
+pre code {
+  display: inline-block;
+  padding: 12px;
+  white-space: pre-wrap;
+}

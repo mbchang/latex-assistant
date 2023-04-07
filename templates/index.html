@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.8/clipboard.min.js"></script>
   </head>
   <body class="light-mode">
     <button id="theme-toggle"><i class="fas fa-adjust"></i> Dark Mode</button>
@@ -18,16 +19,19 @@
     <form id="generate-form" action="/" method="post">
       <!-- write the tikz_description back into text area so it does not disappear when we display -->
       <div class="input-container">
-        <!-- <i class="fas fa-paper-plane submit-icon"></i> -->
-        <!-- <i class="fas fa-keyboard submit-icon"></i> -->
         <i class="fas fa-arrow-right submit-icon"></i>
         <textarea name="tikz_description" rows="1" cols="80" placeholder="Describe what you want rendered in LaTeX">{{ tikz_description }}</textarea>
       </div>
       </form>
     {% if image_data %}
         <div class="result-container">
-          <div class="code-container">
-            <pre><code class="language-latex">{{ tikz_code }}</code></pre>
+          <div class="code-wrapper">
+            <button class="copy-button">
+              <i class="fas fa-clipboard"></i>Copy
+            </button>
+            <div class="code-container">
+              <pre id="tikz-code"><code class="language-latex">{{ tikz_code }}</code></pre>
+            </div>
           </div>
           <div class="image-container">
             <img src="data:image/png;base64,{{ image_data }}" alt="Rendered TikZ code">
@@ -95,6 +99,28 @@
 
       // Initialize the textarea height based on its initial content
       autoResizeTextarea(tikzDescriptionTextarea);
+
+      // Initialize ClipboardJS
+      new ClipboardJS('.copy-button');
+
+      document.querySelector(".copy-button").addEventListener("click", function () {
+        let tempTextArea = document.createElement("textarea");
+        tempTextArea.value = document.querySelector("code").innerText;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempTextArea);
+
+        // Change the text in the copy button to say "Copied!"
+        let copyButton = document.querySelector(".copy-button");
+        copyButton.innerHTML = '<i class="far fa-clipboard"></i> Copied!';
+
+        // Revert the text back to "Copy" after a short delay
+        setTimeout(() => {
+          copyButton.innerHTML = '<i class="far fa-clipboard"></i> Copy';
+        }, 2000);
+      });
+
 
     </script>
   </body>
