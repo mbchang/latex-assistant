@@ -14,20 +14,81 @@ def index():
     return render_template("index.html")
 
 
-def generate_prompt(tikz):
-    return f"""You are an expert at TikZ.
-You will import any necessary tikz libraries.
-Generate a standalone TikZ document that fits the following description: {tikz}.
-\\documentclass[tikz,margin=2mm]{{standalone}}
-\\usepackage{{"""
+# def generate_prompt(tikz):
+#     return f"""You are an expert at TikZ.
+# You will import any necessary tikz libraries.
+# Generate a standalone TikZ document that fits the following description: {tikz}.
+# \\documentclass[tikz,margin=2mm]{{standalone}}
+# \\usepackage{{"""
 
 
-def post_process(tikz):
-    latex = f"""\\documentclass[tikz,margin=2mm]{{standalone}}
-\\usepackage{{{tikz}
-\\end{{tikzpicture}}
+# def post_process(tikz):
+#     latex = f"""\\documentclass[tikz,margin=2mm]{{standalone}}
+# \\usepackage{{{tikz}
+# \\end{{tikzpicture}}
+# \\end{{document}}"""
+#     return latex.strip()
+
+
+# def generate_response(tikz_description):
+#     response = openai.Completion.create(
+#         model="text-davinci-003",
+#         prompt=generate_prompt(tikz_description),
+#         max_tokens=1024,
+#         n=1,
+#         suffix="\\end{tikzpicture}",
+#         stop=["\\end{tikzpicture}"],
+#         temperature=0.7,
+#     )
+#     return response
+
+
+# def generate_prompt(description):
+#     return f"""You are an expert at LaTeX.
+# You will import any necessary libraries.
+# Generate a standalone LaTeX document that fits the following description: {description}.
+# \\documentclass[margin=2mm]{{standalone}}
+# \\usepackage{{"""
+
+
+# def post_process(latex):
+#     latex = f"""\\documentclass[margin=2mm]{{standalone}}
+# \\usepackage{{{latex}
+# \\end{{document}}"""
+#     return latex.strip()
+
+
+def generate_prompt(description):
+    return f"""You are an expert at LaTeX.
+Make sure you import all necessary packages and libraries.
+If asked to include graphics, replace all images with `example-image-<letter>.png`,
+where `<letter>` is a letter from the alphabet.
+If asked to generate TikZ code, make the document class be `standalone`.
+If the document is a standalone document, then generate figures with `minipage`.
+But if the document is not a standalone document, then generate figures with
+`figure`, `subfigure`, or `minipage`.
+Do not assume there are external files, like images or tables.
+Generate the simplest LaTeX document that fits the following description: {description}.
+\\documentclass"""
+
+
+def post_process(latex):
+    latex = f"""\\documentclass{latex}
 \\end{{document}}"""
     return latex.strip()
+
+
+def generate_response(tikz_description):
+    response = openai.Completion.create(
+        model="text-davinci-003",
+        prompt=generate_prompt(tikz_description),
+        max_tokens=1024,
+        n=1,
+        suffix="\\end{document}",
+        stop=["\\end{document}"],
+        temperature=0.7,
+    )
+    return response
 
 
 @app.route("/", methods=["POST"])
@@ -36,16 +97,9 @@ def render_tikz():
     tikz_description = request.form.get("tikz_description", "")
 
     # ask OpenAI to generate the tikz code
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=generate_prompt(tikz_description),
-        max_tokens=1024,
-        n=1,
-        suffix="\\end{tikzpicture}",
-        stop=["\\end{tikzpicture}"],
-        temperature=0.7,
-    )
+    response = generate_response(tikz_description)
     tikz_code = post_process(response.choices[0].text)
+    print(tikz_code)
 
     with tempfile.NamedTemporaryFile(suffix=".tex") as tex_file:
         print(f"Temporary file location: {tex_file.name}")

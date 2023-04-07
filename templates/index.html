@@ -13,13 +13,13 @@
   <body class="light-mode">
     <button id="theme-toggle"><i class="fas fa-adjust"></i> Dark Mode</button>
 
-    <h1>TikZ Generator</h1>
+    <h1>Your Personal LaTeX Assistant</h1>
     <p class="author-credit">Made by <a href="https://twitter.com/mmmbchang">Michael Chang</a></p>
     <form id="generate-form" action="/" method="post">
       <!-- write the tikz_description back into text area so it does not disappear when we display -->
       <div class="input-container">
         <i class="fas fa-paper-plane submit-icon"></i>
-        <textarea name="tikz_description" rows="1" cols="80" placeholder="Enter your TikZ description here">{{ tikz_description }}</textarea>
+        <textarea name="tikz_description" rows="1" cols="80" placeholder="Describe what you want rendered in LaTeX">{{ tikz_description }}</textarea>
       </div>
       </form>
     {% if image_data %}
