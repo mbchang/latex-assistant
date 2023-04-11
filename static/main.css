@@ -152,6 +152,7 @@ form button {
   overflow: auto; /* Add this rule to enable scrolling when the content overflows */
   max-width: 600px;
   width: 100%;
+  font-size: 12px;
 }
 
 #theme-toggle:hover {
